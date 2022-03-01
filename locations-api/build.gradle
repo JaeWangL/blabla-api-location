@@ -1,0 +1,25 @@
+dependencies {
+    implementation project(path: ":locations-common")
+
+    // Spring
+    implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+    // Service discovery
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+    // Centralized configuration
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation 'org.springframework.cloud:spring-cloud-starter-bus-kafka'
+
+    // Kafka
+    implementation 'org.springframework.kafka:spring-kafka'
+
+    // Actuator
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    // JPA + DB
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.flywaydb:flyway-core'
+    runtimeOnly 'mysql:mysql-connector-java'
+}

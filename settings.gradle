@@ -1,0 +1,4 @@
+rootProject.name = 'locations'
+include 'locations-common'
+include 'locations-api'
+
