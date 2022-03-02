@@ -1,6 +1,7 @@
 package com.blabla.locations.api.infrastructure.entities;
 
 import java.math.BigDecimal;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -24,4 +25,7 @@ public class UserEntity extends BaseEntity {
 
     @Embedded
     private LocationModel location;
+
+    @Column(name = "session_id", nullable = false, columnDefinition = "varchar(255) default ''")
+    private String sessionId;
 }

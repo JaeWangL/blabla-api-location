@@ -8,4 +8,8 @@ import java.util.Optional;
 @Repository
 public interface UserEntityRepository extends CrudRepository<UserEntity, String> {
     Optional<UserEntity> findByDeviceDeviceTypeAndDeviceDeviceId(Short deviceType, String deviceId);
+
+    Optional<UserEntity> findBySessionId(String sessionId);
+
+    void deleteBySessionId(String sessionId);
 }
