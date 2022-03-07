@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class PostCreatedIntegrationEventHandler implements
     IntegrationEventHandler<PostCreatedIntegrationEvent> {
     private static final Logger logger = LoggerFactory.getLogger(PostCreatedIntegrationEventHandler.class);
-    private static final String DESTINATION = "/queue/post-created";
+    private static final String DESTINATION = "/queue/post/new";
     private final SimpMessagingTemplate messagingTemplate;
     private final UserService userSvc;
 
@@ -34,8 +34,8 @@ public class PostCreatedIntegrationEventHandler implements
 
         // TODO: Optimize this, ex) using broadcast all users in near area
         usersInDistance.forEach((user) -> {
-            messagingTemplate.convertAndSendToUser(user.sessionId(), "/queue/post/new",
-                event,
+            messagingTemplate.convertAndSendToUser(user.sessionId(), DESTINATION,
+                event.getTitle(),
                 createHeaders(user.sessionId()));
         });
     }
