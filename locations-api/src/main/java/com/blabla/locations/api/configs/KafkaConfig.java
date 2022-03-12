@@ -8,19 +8,18 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaOperations;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.listener.DeadLetterPublishingRecoverer;
-import org.springframework.kafka.listener.DefaultErrorHandler;
+import org.springframework.kafka.listener.SeekToCurrentErrorHandler;
 import org.springframework.kafka.support.converter.RecordMessageConverter;
 import org.springframework.kafka.support.converter.StringJsonMessageConverter;
 import org.springframework.kafka.support.serializer.JsonSerializer;
-import org.springframework.util.backoff.FixedBackOff;
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.util.backoff.FixedBackOff;
 
 @RequiredArgsConstructor
 @Configuration
@@ -29,6 +28,20 @@ public class KafkaConfig {
     private final KafkaTopics topics;
 
     // ############# - Producer - #############
+    @Bean
+    public SeekToCurrentErrorHandler errorHandler(
+        DeadLetterPublishingRecoverer deadLetterPublishingRecoverer
+    ) {
+        return new SeekToCurrentErrorHandler(
+            deadLetterPublishingRecoverer,
+            new FixedBackOff(1000L, 2)
+        );
+    }
+
+    /**
+     * Configure the {@link DeadLetterPublishingRecoverer} to publish poison pill bytes to a dead letter topic:
+     * "topic-name.DLT".
+     */
     @Bean
     public DeadLetterPublishingRecoverer deadLetterPublishingRecoverer(
         KafkaOperations<String, IntegrationEvent> template) {
