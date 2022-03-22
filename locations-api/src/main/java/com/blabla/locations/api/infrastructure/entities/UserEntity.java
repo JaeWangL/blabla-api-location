@@ -1,10 +1,6 @@
 package com.blabla.locations.api.infrastructure.entities;
 
-import java.math.BigDecimal;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,12 +16,13 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Table(name = "users")
 public class UserEntity extends BaseEntity {
+    @Id
+    @Column(name = "session_id", nullable = false, columnDefinition = "varchar(255) default ''")
+    private String sessionId;
+
     @Embedded
     private DeviceInfoModel device;
 
     @Embedded
     private LocationModel location;
-
-    @Column(name = "session_id", nullable = false, columnDefinition = "varchar(255) default ''")
-    private String sessionId;
 }
