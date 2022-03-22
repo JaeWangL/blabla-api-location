@@ -2,6 +2,7 @@ buildscript {
     ext {
         springBootVersion = '2.6.4'
         springCloudVersion = '2021.0.0'
+        dockerPrefix = 'geotestregistry.azurecr.io'
     }
     repositories {
         mavenCentral()
