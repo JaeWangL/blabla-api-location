@@ -37,7 +37,6 @@ subprojects {
 
     dependencies {
         // Utils
-        implementation 'me.paulschwarz:spring-dotenv:2.4.1'
         implementation 'org.apache.commons:commons-lang3:3.12.0'
         implementation 'commons-io:commons-io:2.11.0'
         implementation 'com.github.ksuid:ksuid:1.1.0'

@@ -40,5 +40,5 @@ spring:
       on-profile: prod
 
   flyway:
-    locations: classpath:db/migration, classpath:db/testdata
+    enabled: false
 

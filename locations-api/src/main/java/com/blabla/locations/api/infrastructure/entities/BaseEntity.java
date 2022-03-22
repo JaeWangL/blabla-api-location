@@ -17,10 +17,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 @AllArgsConstructor
 @MappedSuperclass
 public abstract class BaseEntity {
-    @Id
-    @Getter
-    protected String id;
-
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     @Getter

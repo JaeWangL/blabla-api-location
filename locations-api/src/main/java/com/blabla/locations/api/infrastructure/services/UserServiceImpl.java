@@ -6,7 +6,6 @@ import com.blabla.locations.api.infrastructure.entities.DeviceInfoModel;
 import com.blabla.locations.api.infrastructure.entities.LocationModel;
 import com.blabla.locations.api.infrastructure.entities.UserEntity;
 import com.blabla.locations.api.infrastructure.repositories.UserEntityRepository;
-import com.github.ksuid.Ksuid;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,17 +22,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity create(String sessionId, UpdateLocationRequest input) {
         final var newEntity = UserEntity.builder()
-            .id(Ksuid.newKsuid().toString())
-            .device(DeviceInfoModel.builder()
-                .deviceType(input.deviceType())
-                .deviceId(input.deviceId())
-                .build())
-            .location(LocationModel.builder()
-                .latitude(input.latitude())
-                .longitude(input.longitude())
-                .build())
-            .sessionId(sessionId)
-            .build();
+                .sessionId(sessionId)
+                .device(DeviceInfoModel.builder()
+                        .deviceType(input.deviceType())
+                        .deviceId(input.deviceId())
+                        .build())
+                .location(LocationModel.builder()
+                        .latitude(input.latitude())
+                        .longitude(input.longitude())
+                        .build())
+                .build();
         userRepo.save(newEntity);
 
         return newEntity;
